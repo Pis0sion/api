@@ -1,0 +1,90 @@
+{extend name="base/base_static" /}
+{block name="css"}
+<link type="text/css" rel="stylesheet" href="/adminlte/jeDate/test/jeDate-test.css">
+<link type="text/css" rel="stylesheet" href="/adminlte/jeDate/skin/jedate.css">
+{/block}
+{block name="content"}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{$title}-IP</h3>
+                    </div>
+                    <form role="form"  onsubmit="return false;">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="ip">授权IP</label>
+                                <input type="text" class="form-control" id="ip" name="ip" placeholder="填写外网服务器固定IP" title="对该IP授权接口访问权限">
+                            </div>
+                            <div class="form-group">
+                                <label for="customer_id">授权所属公司/平台</label>
+                                <select class="form-control" id="customer_id" name="customer_id">
+                                    <option value="">--请选择--</option>
+                                    {volist name="customerlist" id="vo"}
+                                    <option value="{$vo.id}" {if  !empty(request()->param('cid')) && ($vo.id == request()->param('cid'))}selected{/if}>{$vo.customer_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_id">授权产品</label>
+                                <select class="form-control" id="product_id" name="product_id">
+                                    <option value="">--请选择--</option>
+                                    {volist name="productlist" id="vo"}
+                                    <option value="{$vo.id}">{$vo.product_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_id">授权日期</label>
+                                <div class="input-group date" id="test">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" name="authorization_time" class="form-control pull-right" id="times">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="call_numbers">调用次数（可选）-1为无限制调用次数</label>
+                                <input type="number" class="form-control" value="0" id="call_numbers" name="call_numbers" placeholder="对该IP授权调用接口次数" title="对该IP授权调用接口次数">
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary ConfirmAjax" confirm="确定授权？" url="{:url('/license/grant/add')}" isdata="1" types="POST">授权</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{$title}-公司</h3>
+                    </div>
+                    <form role="form"  onsubmit="return false;">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="customer_name">授权公司/平台名称</label>
+                                <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="填写授权公司/平台名称" title="请填写授权公司/平台名称">
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary ConfirmAjax" confirm="确定授权？" url="{:url('/license/grant/add')}" isdata="1" types="PUT">授权</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{/block}
+{block name="script"}
+<script src="/adminlte/jeDate/src/jedate.js"></script>
+<script type="text/javascript">
+    //其它功能展示选择
+    jeDate("#times",{
+        theme:{bgcolor:"#00A1CB",pnColor:"#00CCFF"},
+        format: "YYYY-MM-DD",
+        isinitVal: true
+    });
+</script>
+{/block}
+

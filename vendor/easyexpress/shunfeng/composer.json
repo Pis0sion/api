@@ -1,0 +1,44 @@
+{
+  "name": "easyexpress/shunfeng",
+  "description": "顺丰SDK",
+  "keywords": [
+    "shunfeng SDK",
+    "shunfeng",
+    "顺丰",
+    "顺丰SDK"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "renshuai",
+      "email": "renshuaia@gmail.com"
+    }
+  ],
+  "require": {
+    "php":">=5.5.0",
+    "monolog/monolog": "^1.23",
+    "guzzlehttp/guzzle": "^6.3",
+    "pimple/pimple": "^3.0",
+    "doctrine/cache": "^1.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "mockery/mockery": "^0.9.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "EasyExpress\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "EasyExpress\\Tests\\": "tests/"
+    }
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}

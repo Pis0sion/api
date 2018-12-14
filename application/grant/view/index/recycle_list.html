@@ -1,0 +1,57 @@
+{extend name="base/base_static"}
+{block name="css"}
+<style>
+    /*!*分页*!*/
+    .pagination {font-size: 12px;margin:0;}
+</style>
+{/block}
+{block name="content"}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{$title}</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>所属类目</th>
+                            <th>表名</th>
+                            <th>对应表里所在id</th>
+                            <th>操作者</th>
+                            <th>操作时间</th>
+                            <th>操作</th>
+                        </tr>
+                        {volist name="data" id="vo"}
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.beizhu}</td>
+                            <td>{$vo.table_name}</td>
+                            <td>{$vo.tid}</td>
+                            <td>{$vo.operator}</td>
+                            <td>{$vo.createtime}</td>
+                            <td>
+                                <a href="#" onclick="return ConfirmAjax({$vo.tid},'确定对该数据进行还原？','/license/index/recycle','POST',1,{recycle:1,table:'{$vo.table_name}',operation:'recovery',rid:{$vo.id}});"><span class="badge bg-green">还原</span></a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class=" pull-right" style="height:31px;">
+                        {$data|raw}
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+<!-- /.content -->
+{/block}

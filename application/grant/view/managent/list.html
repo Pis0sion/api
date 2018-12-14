@@ -1,0 +1,57 @@
+{extend name="base/base_static"}
+{block name="css"}
+<style>
+    /*!*分页*!*/
+    .pagination {font-size: 12px;margin:0;}
+</style>
+{/block}
+{block name="content"}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{$title}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width:10px">#</th>
+                                <th style="width:10%">账号</th>
+                                <th style="width:20%">上次登陆时间</th>
+                                <th style="width:15%">上次登陆ip</th>
+                                <th style="width:10%">登陆次数</th>
+                                <th style="width:10%">添加人</th>
+                                <th>创建时间</th>
+                                <th style="width:15%">操作</th>
+                            </tr>
+                            {volist name="data" id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.username}</td>
+                                <td>{$vo.list_login_time}</td>
+                                <td>{$vo.list_login_ip}</td>
+                                <td>{$vo.login_num}</td>
+                                <td>{$vo.operator}</td>
+                                <td>{$vo.createtime}</td>
+                                <td><a href="#" onclick="return ConfirmAjax({$vo.id},'加入回收站后，可对数据进行还原，您确认进行软删除？','/license/index/recycle','POST',1,{recycle:2,table:'admin',operation:'delete'});"><span class="badge bg-success">回收站</span></a></td>
+                            </tr>
+                            {/volist}
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class=" pull-right" style="height:31px;">
+                            {$data|raw}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </section>
+    <!-- /.content -->
+{/block}

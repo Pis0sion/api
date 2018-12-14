@@ -1,0 +1,70 @@
+{extend name="base/base_static"}
+{block name="css"}
+<style>
+    /*!*分页*!*/
+    .pagination {font-size: 12px;margin:0;}
+</style>
+{/block}
+{block name="content"}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{$title}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width:10px">#</th>
+                                <th style="width:15%">产品名称</th>
+                                <th style="width:20%">产品值</th>
+                                <th style="width:15%">是否开启</th>
+                                <th>创建时间</th>
+                                <th style="width:15%">操作</th>
+                            </tr>
+                            {volist name="data" id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.product_name}</td>
+                                <td>
+                                    <a href="#">
+                                    <div class="progress progress-xs"  title="{$vo.product_value}">
+                                        <div class="progress-bar progress-bar-danger" style="width:{$vo.product_value}%"></div>
+                                    </div>
+                                    </a>
+                                </td>
+                                <!--confirm="确定此操作？" url="{:url('')}" types="POST" isUpdate="1" isdata="1"-->
+                                <td>
+                                    <a href="#">
+                                    {if $vo.product_status eq 1}
+                                    <span class="badge bg-success" Onclick="return ConfirmAjax({$vo.id},'确定此操作？','/license/product/list','POST',1,{product_status:0})">关闭</span>
+                                    {else /}
+                                    <span class="badge bg-green" Onclick="return ConfirmAjax({$vo.id},'确定此操作？','/license/product/list','POST',1,{product_status:1})">开启</span>
+                                    {/if}
+                                    </a>
+                                </td>
+                                <td>{$vo.createtime}</td>
+                                <td>
+                                    <a href="#" onclick="return ConfirmAjax({$vo.id},'加入回收站后，可对数据进行还原，您确认进行软删除？','/license/index/recycle','POST',1,{recycle:2,table:'product_list',operation:'delete'});"><span class="badge bg-success">回收站</span></a>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class=" pull-right" style="height:31px;">
+                            {$data|raw}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </section>
+    <!-- /.content -->
+{/block}

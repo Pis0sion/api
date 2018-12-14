@@ -1,0 +1,65 @@
+{extend name="base/base_static"}
+{block name="css"}
+<style>
+    /*!*分页*!*/
+    .pagination {font-size: 12px;margin:0;}
+</style>
+{/block}
+{block name="content"}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{$title}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width:10px">#</th>
+                                <th>公司/平台名称</th>
+                                <th>创建时间</th>
+                                <th>是否开启接口权限</th>
+                                <th>创建者</th>
+                                <th>操作</th>
+                            </tr>
+                            {volist name="data" id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.customer_name}</td>
+                                <td>{$vo.createtime}</td>
+                                <td>
+                                    <a href="#">
+                                        {if $vo.is_activation eq 1}
+                                        <span class="badge bg-success" Onclick="return ConfirmAjax({$vo.id},'确定此操作？','/license/grant/list','POST',1,{product_status:0})">关闭</span>
+                                        {else /}
+                                        <span class="badge bg-green" Onclick="return ConfirmAjax({$vo.id},'确定此操作？','/license/grant/list','POST',1,{product_status:1})">开启</span>
+                                        {/if}
+                                    </a>
+                                </td>
+                                <td>{$vo.operator}</td>
+                                <td>
+                                    <a href="{:url('/license/grant/add',['cid'=>$vo.id])}"><span class="badge bg-green">授权IP</span></a> |
+                                    <a href="{:url('/license/grant/grantList',['ids'=>$vo.grant_ids,'title'=>$vo.customer_name,'cid'=>$vo.id])}"><span class="badge bg-blue">查看授权IP</span></a> |
+                                    <a href="#" onclick="return ConfirmAjax({$vo.id},'加入回收站后，可对数据进行还原，您确认进行软删除？','/license/index/recycle','POST',1,{recycle:2,table:'customer_info',operation:'delete'});"><span class="badge bg-success">回收站</span></a>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class=" pull-right" style="height:31px;">
+                            {$data|raw}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </section>
+    <!-- /.content -->
+{/block}
